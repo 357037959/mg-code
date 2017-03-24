@@ -38,3 +38,8 @@ Support is provided through the user mailing list.  Mail
 questions or bug reports to:
 
   mybatis-user@googlegroups.com
+
+# 主函数执行参数
+-configfile /Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/main/resources/generatorConfig-horay.xml -overwrite
+-configfile /Users/shiyang/git/mybatis/core/mybatis-generator-systests-ibatis2-java2/src/main/resources/ibatorConfig-horay.xml -overwrite
+-configfile /Users/shiyang/git/mybatis/core/mybatis-generator-systests-ibatis2-java5/src/main/resources/ibatorConfig-horay.xml -overwrite
