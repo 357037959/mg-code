@@ -30,6 +30,7 @@ public class PropertyRegistry {
      * recognized by table and java model generator
      */
     public static final String ANY_ROOT_CLASS = "rootClass"; //$NON-NLS-1$
+    public static final String ANY_EXAMPLE_CLASS = "exampleClass"; //$NON-NLS-1$
     public static final String ANY_IMMUTABLE = "immutable"; //$NON-NLS-1$
     public static final String ANY_CONSTRUCTOR_BASED = "constructorBased"; //$NON-NLS-1$
 
@@ -37,6 +38,7 @@ public class PropertyRegistry {
      * recognized by table and java client generator
      */
     public static final String ANY_ROOT_INTERFACE = "rootInterface"; //$NON-NLS-1$
+    public static final String ANY_SQL_PROVIDER_CLASS = "sqlProviderClass"; //$NON-NLS-1$
 
     public static final String TABLE_USE_COLUMN_INDEXES = "useColumnIndexes"; //$NON-NLS-1$
     public static final String TABLE_USE_ACTUAL_COLUMN_NAMES = "useActualColumnNames"; //$NON-NLS-1$

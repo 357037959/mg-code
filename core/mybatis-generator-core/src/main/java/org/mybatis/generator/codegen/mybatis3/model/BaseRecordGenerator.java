@@ -20,7 +20,9 @@ import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansGett
 import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansSetter;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
@@ -36,6 +38,7 @@ import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.codegen.RootClassInfo;
+import org.mybatis.generator.constant.Constants;
 
 /**
  * 
@@ -60,6 +63,31 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
                 introspectedTable.getBaseRecordType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
+        
+		topLevelClass.addJavaDocLine("/**");
+		topLevelClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable().getTableComment() + "-映射实体类(" + introspectedTable.getTableConfiguration().getSchema() + "." + introspectedTable.getTableConfiguration().getTableName() + ")");
+		topLevelClass.addJavaDocLine(" *");
+		topLevelClass.addJavaDocLine(" * @author MybatisGenerator");
+		topLevelClass.addJavaDocLine(" * @date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		topLevelClass.addJavaDocLine(" */");
+
+		StringBuffer annotationBuffer = new StringBuffer("@Table(");
+		annotationBuffer.append("name = \"").append(table.getIntrospectedTableName()).append("\", ");
+		annotationBuffer.append(" comment = \"").append(introspectedTable.getFullyQualifiedTable().getTableComment()).append("\")");
+		topLevelClass.addAnnotation(annotationBuffer.toString());
+		topLevelClass.addImportedType(new FullyQualifiedJavaType(Constants.TABLE_PACKAGE));
+		topLevelClass.addImportedType(new FullyQualifiedJavaType(Constants.COLUMN_PACKAGE));
+		topLevelClass.addSuperInterface(new FullyQualifiedJavaType("java.io.Serializable"));
+		Field serialVersionField = new Field();
+		serialVersionField.setName("serialVersionUID");
+		serialVersionField.setStatic(true);
+		serialVersionField.setFinal(true);
+		serialVersionField.setVisibility(JavaVisibility.PRIVATE);
+		FullyQualifiedJavaType serialVersionUIDType = new FullyQualifiedJavaType("long");
+		serialVersionField.setType(serialVersionUIDType);
+		serialVersionField.setInitializationString("1L");
+		topLevelClass.addField(serialVersionField);
+		topLevelClass.addImportedType(new FullyQualifiedJavaType("java.io.Serializable"));
         commentGenerator.addJavaFileComment(topLevelClass);
 
         FullyQualifiedJavaType superClass = getSuperClass();
@@ -111,11 +139,29 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
             }
         }
 
+        generateStaticFinalField(table, introspectedTable.getAllColumns(), topLevelClass);
+        
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().modelBaseRecordClassGenerated(
                 topLevelClass, introspectedTable)) {
             answer.add(topLevelClass);
         }
+        
+		Method method = new Method();
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setReturnType(FullyQualifiedJavaType.getStringInstance());
+		method.setName("getTableName");
+		method.addBodyLine("return getClass().getAnnotation(Table.class).name();");
+		topLevelClass.addMethod(method);
+
+		method = new Method();
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setStatic(true);
+		method.setReturnType(FullyQualifiedJavaType.getStringInstance());
+		method.setName("tableName");
+		method.addBodyLine("return " + topLevelClass.getType().getShortName() + ".class.getAnnotation(Table.class).name();");
+		topLevelClass.addMethod(method);
+        
         return answer;
     }
 
@@ -214,4 +260,21 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         
         return introspectedColumns;
     }
+    
+	protected void generateStaticFinalField(FullyQualifiedTable table, List<IntrospectedColumn> columns, TopLevelClass topLevelClass) {
+		for (IntrospectedColumn column : columns) {
+			Field field = new Field();
+			if (column == columns.get(0)) {
+				field.addJavaDocLine("");
+			}
+			field.setVisibility(JavaVisibility.PUBLIC);
+			field.setType(FullyQualifiedJavaType.getStringInstance());
+			field.setName(column.getActualColumnName().toUpperCase());
+			field.setFinal(true);
+			field.setStatic(true);
+			field.setInitializationString("\"" + column.getActualColumnName() + "\"");
+			field.addJavaDocLine("/** 常量-" + column.getRemarks() + " */");
+			topLevelClass.addField(field);
+		}
+	}
 }

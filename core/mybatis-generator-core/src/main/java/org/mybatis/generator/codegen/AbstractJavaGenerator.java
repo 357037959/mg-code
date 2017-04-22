@@ -70,4 +70,28 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
     }
+    
+    public String getSqlProviderClass() {
+        String sqlProviderClass = introspectedTable
+                .getTableConfigurationProperty(PropertyRegistry.ANY_SQL_PROVIDER_CLASS);
+        if (sqlProviderClass == null) {
+            Properties properties = context
+                    .getJavaClientGeneratorConfiguration().getProperties();
+            sqlProviderClass = properties.getProperty(PropertyRegistry.ANY_SQL_PROVIDER_CLASS);
+        }
+
+        return sqlProviderClass;
+    }
+    
+    public String getExampleClass() {
+    	String sqlProviderClass = introspectedTable
+    			.getTableConfigurationProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
+    	if (sqlProviderClass == null) {
+    		Properties properties = context
+    				.getJavaModelGeneratorConfiguration().getProperties();
+    		sqlProviderClass = properties.getProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
+    	}
+    	
+    	return sqlProviderClass;
+    }
 }

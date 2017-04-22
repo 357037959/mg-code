@@ -62,6 +62,13 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
 
+        String exampleClass = getExampleClass();
+        if (exampleClass != null) {
+        	FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(exampleClass);
+            topLevelClass.setSuperClass(fqjt);
+            topLevelClass.addImportedType(fqjt);
+        }
+        
         // add default constructor
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);

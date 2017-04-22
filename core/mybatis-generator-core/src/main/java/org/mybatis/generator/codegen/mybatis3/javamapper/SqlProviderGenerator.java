@@ -64,6 +64,13 @@ public class SqlProviderGenerator extends AbstractJavaGenerator {
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
 
+        String sqlProviderClass = getSqlProviderClass();
+        if (sqlProviderClass != null) {
+        	FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(sqlProviderClass);
+            topLevelClass.setSuperClass(fqjt);
+            topLevelClass.addImportedType(fqjt);
+        }
+        
         boolean addApplyWhereMethod = false;
         addApplyWhereMethod |= addCountByExampleMethod(topLevelClass);
         addApplyWhereMethod |= addDeleteByExampleMethod(topLevelClass);
