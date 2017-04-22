@@ -246,6 +246,16 @@ public class JavaBeansUtil {
         context.getCommentGenerator().addFieldComment(field,
                 introspectedTable, introspectedColumn);
 
+        String annotation = null;
+		if (introspectedColumn.isJDBCDateColumn() || introspectedColumn.isJDBCTimeColumn() || introspectedColumn.isJDBCTimestampColumn()) {
+			annotation = String.format("@Column(name = \"%s\", type = \"%s\", comment = \"%s\", nullable = %s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), introspectedColumn.getRemarks(), introspectedColumn.isNullable());
+		} else if (introspectedColumn.isJdbcNumericColumn() && introspectedColumn.getScale() > 0) {
+			annotation = String.format("@Column(name = \"%s\", type = \"%s\", comment = \"%s\", nullable = %s, length = %s, scale = %s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), introspectedColumn.isNullable(), introspectedColumn.getRemarks(), introspectedColumn.getLength(), introspectedColumn.getScale());
+		} else {
+			annotation = String.format("@Column(name = \"%s\", type = \"%s\", comment = \"%s\", nullable = %s, length = %s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), introspectedColumn.getRemarks(), introspectedColumn.isNullable(), introspectedColumn.getLength());
+		}
+		field.addAnnotation(annotation);
+        
         return field;
     }
 
