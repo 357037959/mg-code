@@ -35,8 +35,6 @@ import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.logging.LogFactory;
 
-import mbg.test.common.util.TestUtilities;
-
 /**
  * This class allows the code generator to be run from the command line.
  * 
@@ -53,11 +51,6 @@ public class ShellRunner {
     private static final String HELP_2 = "-h"; //$NON-NLS-1$
 
     public static void main(String[] args) {
-		try {
-			TestUtilities.createDatabase();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
         if (args.length == 0) {
             usage();
             System.exit(0);
