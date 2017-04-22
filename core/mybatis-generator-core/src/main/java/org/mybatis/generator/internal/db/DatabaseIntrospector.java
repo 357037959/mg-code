@@ -24,7 +24,9 @@ import static org.mybatis.generator.internal.util.StringUtility.stringContainsSp
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -695,10 +697,12 @@ public class DatabaseIntrospector {
      * @param columns
      *            the columns
      * @return the list
+     * @throws SQLException 
+     * @throws RuntimeException 
      */
     private List<IntrospectedTable> calculateIntrospectedTables(
             TableConfiguration tc,
-            Map<ActualTableName, List<IntrospectedColumn>> columns) {
+            Map<ActualTableName, List<IntrospectedColumn>> columns) throws RuntimeException, SQLException {
         boolean delimitIdentifiers = tc.isDelimitIdentifiers()
                 || stringContainsSpace(tc.getCatalog())
                 || stringContainsSpace(tc.getSchema())
@@ -729,7 +733,7 @@ public class DatabaseIntrospector {
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_CATALOG),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_SCHEMA),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_TABLE_NAME),
-                    delimitIdentifiers, context);
+                    delimitIdentifiers, context, getTableComment(databaseMetaData.getConnection(), tc.getSchema(), tc.getTableName()));
 
             IntrospectedTable introspectedTable = ObjectFactory
                     .createIntrospectedTable(tc, table, context);
@@ -773,4 +777,63 @@ public class DatabaseIntrospector {
             warnings.add(getString("Warning.27", e.getMessage())); //$NON-NLS-1$
         }
     }
+    
+
+	/**
+	 * 获取表注释
+	 * 
+	 * @param conn
+	 * @param schema
+	 * @param tableName
+	 * @return
+	 * @throws SQLException
+	 */
+	private static String getTableComment(Connection conn, String schema, String tableName) throws RuntimeException {
+		String sql = "select t.TABLE_COMMENT from information_schema.`TABLES` t where t.TABLE_NAME=? and TABLE_SCHEMA=?";
+
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tableName);
+			pstmt.setString(2, schema);
+			pstmt.setMaxRows(1);
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				String comments = resultSet.getString("TABLE_COMMENT");
+				if (comments == null || "".equals(comments.trim())) {
+					throw new RuntimeException(schema + "." + tableName + "'s table comments cannot be null.");
+				}
+				return comments;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(resultSet, pstmt);
+		}
+		throw new RuntimeException(schema + "." + tableName + "'s table comment cannot be null.");
+	}
+
+	/**
+	 * 关闭ResultSet/PreparedStatement
+	 * 
+	 * @param resultSet
+	 * @param pstmt
+	 */
+	private static void close(ResultSet resultSet, PreparedStatement pstmt) {
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
