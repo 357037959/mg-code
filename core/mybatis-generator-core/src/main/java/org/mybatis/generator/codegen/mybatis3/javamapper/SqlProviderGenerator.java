@@ -17,7 +17,9 @@ package org.mybatis.generator.codegen.mybatis3.javamapper;
 
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
@@ -62,6 +64,12 @@ public class SqlProviderGenerator extends AbstractJavaGenerator {
                 introspectedTable.getMyBatis3SqlProviderType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
+        topLevelClass.addJavaDocLine("/**");
+        topLevelClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable().getTableComment() + "-SQL提供者(" + introspectedTable.getTableConfiguration().getSchema() + "." + introspectedTable.getTableConfiguration().getTableName() + ")");
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" * @author MybatisGenerator");
+        topLevelClass.addJavaDocLine(" * @date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        topLevelClass.addJavaDocLine(" */");
         commentGenerator.addJavaFileComment(topLevelClass);
 
         String sqlProviderClass = getSqlProviderClass();

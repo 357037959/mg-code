@@ -19,7 +19,9 @@ import static org.mybatis.generator.internal.util.JavaBeansUtil.getGetterMethodN
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,6 +62,12 @@ public class ExampleGenerator extends AbstractJavaGenerator {
                 introspectedTable.getExampleType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
+		topLevelClass.addJavaDocLine("/**");
+		topLevelClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable().getTableComment() + "-Example实体类(" + introspectedTable.getTableConfiguration().getSchema() + "." + introspectedTable.getTableConfiguration().getTableName() + ")");
+		topLevelClass.addJavaDocLine(" *");
+		topLevelClass.addJavaDocLine(" * @author MybatisGenerator");
+		topLevelClass.addJavaDocLine(" * @date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		topLevelClass.addJavaDocLine(" */");
         commentGenerator.addJavaFileComment(topLevelClass);
 
         String exampleClass = getExampleClass();
