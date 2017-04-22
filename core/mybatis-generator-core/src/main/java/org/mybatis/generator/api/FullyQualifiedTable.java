@@ -66,7 +66,10 @@ public class FullyQualifiedTable {
 
     /** The ending delimiter. */
     private String endingDelimiter;
-
+    
+    /** The table comment. */
+	private String tableComment;
+	
     /**
      * This object is used to hold information related to the table itself, not the columns in the table.
      *
@@ -110,7 +113,7 @@ public class FullyQualifiedTable {
             String domainObjectName, String alias,
             boolean ignoreQualifiersAtRuntime, String runtimeCatalog,
             String runtimeSchema, String runtimeTableName,
-            boolean delimitIdentifiers, Context context) {
+            boolean delimitIdentifiers, Context context,String tableComment) {
         super();
         this.introspectedCatalog = introspectedCatalog;
         this.introspectedSchema = introspectedSchema;
@@ -140,6 +143,7 @@ public class FullyQualifiedTable {
                 .getBeginningDelimiter() : ""; //$NON-NLS-1$
         endingDelimiter = delimitIdentifiers ? context.getEndingDelimiter()
                 : ""; //$NON-NLS-1$
+        this.tableComment = tableComment;
     }
 
     /**
@@ -265,7 +269,11 @@ public class FullyQualifiedTable {
         }
     }
 
-    /* (non-Javadoc)
+    public String getTableComment() {
+		return tableComment;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
