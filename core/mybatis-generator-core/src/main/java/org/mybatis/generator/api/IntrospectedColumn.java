@@ -187,6 +187,20 @@ public class IntrospectedColumn {
                 || jdbcType == Types.LONGNVARCHAR || jdbcType == Types.NCHAR
                 || jdbcType == Types.NCLOB || jdbcType == Types.NVARCHAR;
     }
+    
+	public boolean isJdbcNumericColumn() {
+		return jdbcType == Types.BIGINT//
+				|| jdbcType == Types.BINARY//
+				|| jdbcType == Types.BIT//
+				|| jdbcType == Types.DECIMAL//
+				|| jdbcType == Types.DOUBLE//
+				|| jdbcType == Types.FLOAT//
+				|| jdbcType == Types.INTEGER //
+				|| jdbcType == Types.NUMERIC//
+				|| jdbcType == Types.REAL//
+				|| jdbcType == Types.SMALLINT//
+				|| jdbcType == Types.TINYINT;
+	}
 
     public String getJavaProperty() {
         return getJavaProperty(null);
@@ -220,6 +234,10 @@ public class IntrospectedColumn {
                 && "TIME".equalsIgnoreCase(jdbcTypeName); //$NON-NLS-1$
     }
 
+	public boolean isJDBCTimestampColumn() {
+		return fullyQualifiedJavaType.equals(FullyQualifiedJavaType.getDateInstance()) && Types.TIMESTAMP == jdbcType; //$NON-NLS-1$
+	}
+    
     public String getTypeHandler() {
         return typeHandler;
     }
