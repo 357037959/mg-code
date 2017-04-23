@@ -49,7 +49,7 @@ public class SimpleSelectAllElementGenerator extends
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("select "); //$NON-NLS-1$
+        sb.append("SELECT "); //$NON-NLS-1$
         Iterator<IntrospectedColumn> iter = introspectedTable.getAllColumns()
                 .iterator();
         while (iter.hasNext()) {
@@ -71,7 +71,7 @@ public class SimpleSelectAllElementGenerator extends
         }
 
         sb.setLength(0);
-        sb.append("from "); //$NON-NLS-1$
+        sb.append("FROM "); //$NON-NLS-1$
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
@@ -80,7 +80,7 @@ public class SimpleSelectAllElementGenerator extends
         boolean hasOrderBy = StringUtility.stringHasValue(orderByClause);
         if (hasOrderBy) {
             sb.setLength(0);
-            sb.append("order by "); //$NON-NLS-1$
+            sb.append("ORDER BY "); //$NON-NLS-1$
             sb.append(orderByClause);
             answer.addElement(new TextElement(sb.toString()));
         }

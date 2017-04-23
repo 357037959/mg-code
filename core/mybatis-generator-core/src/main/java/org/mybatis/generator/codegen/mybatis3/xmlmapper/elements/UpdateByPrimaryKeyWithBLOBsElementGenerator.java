@@ -59,13 +59,13 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("update "); //$NON-NLS-1$
+        sb.append("UPDATE "); //$NON-NLS-1$
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
         // set up for first column
         sb.setLength(0);
-        sb.append("set "); //$NON-NLS-1$
+        sb.append("SET "); //$NON-NLS-1$
 
         Iterator<IntrospectedColumn> iter = ListUtilities.removeGeneratedAlwaysColumns(introspectedTable
                 .getNonPrimaryKeyColumns()).iterator();
@@ -96,9 +96,9 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  AND "); //$NON-NLS-1$
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("WHERE "); //$NON-NLS-1$
                 and = true;
             }
 

@@ -47,10 +47,10 @@ public class SelectByExampleWithBLOBsElementGenerator extends
 
         context.getCommentGenerator().addComment(answer);
 
-        answer.addElement(new TextElement("select")); //$NON-NLS-1$
+        answer.addElement(new TextElement("SELECT")); //$NON-NLS-1$
         XmlElement ifElement = new XmlElement("if"); //$NON-NLS-1$
         ifElement.addAttribute(new Attribute("test", "distinct")); //$NON-NLS-1$ //$NON-NLS-2$
-        ifElement.addElement(new TextElement("distinct")); //$NON-NLS-1$
+        ifElement.addElement(new TextElement("DISTINCT")); //$NON-NLS-1$
         answer.addElement(ifElement);
 
         StringBuilder sb = new StringBuilder();
@@ -67,7 +67,7 @@ public class SelectByExampleWithBLOBsElementGenerator extends
         answer.addElement(getBlobColumnListElement());
 
         sb.setLength(0);
-        sb.append("from "); //$NON-NLS-1$
+        sb.append("FROM "); //$NON-NLS-1$
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
@@ -75,7 +75,7 @@ public class SelectByExampleWithBLOBsElementGenerator extends
 
         ifElement = new XmlElement("if"); //$NON-NLS-1$
         ifElement.addAttribute(new Attribute("test", "orderByClause != null")); //$NON-NLS-1$ //$NON-NLS-2$
-        ifElement.addElement(new TextElement("order by ${orderByClause}")); //$NON-NLS-1$
+        ifElement.addElement(new TextElement("ORDER BY ${orderByClause}")); //$NON-NLS-1$
         answer.addElement(ifElement);
 
         if (context.getPlugins()

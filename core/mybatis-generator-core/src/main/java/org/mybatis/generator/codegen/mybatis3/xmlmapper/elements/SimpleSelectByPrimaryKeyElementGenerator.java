@@ -62,7 +62,7 @@ public class SimpleSelectByPrimaryKeyElementGenerator extends
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("select "); //$NON-NLS-1$
+        sb.append("SELECT "); //$NON-NLS-1$
 
         if (stringHasValue(introspectedTable.getSelectByPrimaryKeyQueryId())) {
             sb.append('\'');
@@ -91,7 +91,7 @@ public class SimpleSelectByPrimaryKeyElementGenerator extends
         }
 
         sb.setLength(0);
-        sb.append("from "); //$NON-NLS-1$
+        sb.append("FROM "); //$NON-NLS-1$
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
@@ -101,9 +101,9 @@ public class SimpleSelectByPrimaryKeyElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  AND "); //$NON-NLS-1$
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("WHERE "); //$NON-NLS-1$
                 and = true;
             }
 

@@ -48,14 +48,14 @@ public class UpdateByExampleWithBLOBsElementGenerator extends
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("update "); //$NON-NLS-1$
+        sb.append("UPDATE "); //$NON-NLS-1$
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
         // set up for first column
         sb.setLength(0);
-        sb.append("set "); //$NON-NLS-1$
+        sb.append("SET "); //$NON-NLS-1$
 
         Iterator<IntrospectedColumn> iter = ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getAllColumns())
                 .iterator();
