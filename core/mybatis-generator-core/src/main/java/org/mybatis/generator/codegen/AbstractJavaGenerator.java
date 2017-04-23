@@ -18,14 +18,12 @@ package org.mybatis.generator.codegen;
 import static org.mybatis.generator.internal.util.JavaBeansUtil.getGetterMethodName;
 
 import java.util.List;
-import java.util.Properties;
 
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
-import org.mybatis.generator.config.PropertyRegistry;
 
 /**
  * 
@@ -49,18 +47,6 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         return method;
     }
 
-    public String getRootClass() {
-        String rootClass = introspectedTable
-                .getTableConfigurationProperty(PropertyRegistry.ANY_ROOT_CLASS);
-        if (rootClass == null) {
-            Properties properties = context
-                    .getJavaModelGeneratorConfiguration().getProperties();
-            rootClass = properties.getProperty(PropertyRegistry.ANY_ROOT_CLASS);
-        }
-
-        return rootClass;
-    }
-
     protected void addDefaultConstructor(TopLevelClass topLevelClass) {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
@@ -69,29 +55,5 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         method.addBodyLine("super();"); //$NON-NLS-1$
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
-    }
-    
-    public String getSqlProviderClass() {
-        String sqlProviderClass = introspectedTable
-                .getTableConfigurationProperty(PropertyRegistry.ANY_SQL_PROVIDER_CLASS);
-        if (sqlProviderClass == null) {
-            Properties properties = context
-                    .getJavaClientGeneratorConfiguration().getProperties();
-            sqlProviderClass = properties.getProperty(PropertyRegistry.ANY_SQL_PROVIDER_CLASS);
-        }
-
-        return sqlProviderClass;
-    }
-    
-    public String getExampleClass() {
-    	String sqlProviderClass = introspectedTable
-    			.getTableConfigurationProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
-    	if (sqlProviderClass == null) {
-    		Properties properties = context
-    				.getJavaModelGeneratorConfiguration().getProperties();
-    		sqlProviderClass = properties.getProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
-    	}
-    	
-    	return sqlProviderClass;
     }
 }

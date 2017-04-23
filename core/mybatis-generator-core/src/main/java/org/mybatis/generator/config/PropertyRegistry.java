@@ -56,7 +56,12 @@ public class PropertyRegistry {
     public static final String CONTEXT_JAVA_FILE_ENCODING = "javaFileEncoding"; //$NON-NLS-1$
     public static final String CONTEXT_JAVA_FORMATTER = "javaFormatter"; //$NON-NLS-1$
     public static final String CONTEXT_XML_FORMATTER = "xmlFormatter"; //$NON-NLS-1$
-
+    public static final String CONTEXT_BASE_BEAN_CLASS = "baseBeanClass"; //$NON-NLS-1$
+    public static final String CONTEXT_BASE_MAPPER_INTERFACE = "baseMapperInterface"; //$NON-NLS-1$
+    public static final String CONTEXT_SQL_PROVIDER_CLASS = "sqlProviderClass"; //$NON-NLS-1$
+    public static final String CONTEXT_BASE_EXAMPLE_CLASS = "baseExampleClass"; //$NON-NLS-1$
+    public static final String CONTEXT_GENERATE_EXAMPLE_CLASS = "generateExampleClass"; //$NON-NLS-1$
+    
     public static final String CLIENT_USE_LEGACY_BUILDER = "useLegacyBuilder"; //$NON-NLS-1$
     
     public static final String DAO_EXAMPLE_METHOD_VISIBILITY = "exampleMethodVisibility"; //$NON-NLS-1$

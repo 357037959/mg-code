@@ -367,6 +367,10 @@ public abstract class BaseRules implements Rules {
      * @return true if the example class should be generated
      */
     public boolean generateExampleClass() {
+    	if (StringUtility.isFalse(introspectedTable.getContext().getProperty(PropertyRegistry.CONTEXT_GENERATE_EXAMPLE_CLASS))) {
+    		return false;
+    	}
+    	
         if (introspectedTable.getContext().getSqlMapGeneratorConfiguration() == null
                 && introspectedTable.getContext().getJavaClientGeneratorConfiguration() == null) {
             // this is a model only context - don't generate the example class

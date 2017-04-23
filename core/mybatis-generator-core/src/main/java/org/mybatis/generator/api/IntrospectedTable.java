@@ -38,6 +38,7 @@ import org.mybatis.generator.internal.rules.ConditionalModelRules;
 import org.mybatis.generator.internal.rules.FlatModelRules;
 import org.mybatis.generator.internal.rules.HierarchicalModelRules;
 import org.mybatis.generator.internal.rules.Rules;
+import org.mybatis.generator.internal.util.StringUtility;
 
 /**
  * Base class for all code generator implementations. This class provides many
@@ -538,6 +539,12 @@ public abstract class IntrospectedTable {
      * @return the type for the example class.
      */
     public String getExampleType() {
+    	if (StringUtility.isFalse(this.getContext().getProperty(PropertyRegistry.CONTEXT_GENERATE_EXAMPLE_CLASS))) {
+    		String exampleClass = this.getContext().getProperty(PropertyRegistry.CONTEXT_BASE_EXAMPLE_CLASS);
+    		if (exampleClass != null) {
+    			return exampleClass;
+    		}
+    	}
         return internalAttributes.get(InternalAttribute.ATTR_EXAMPLE_TYPE);
     }
 

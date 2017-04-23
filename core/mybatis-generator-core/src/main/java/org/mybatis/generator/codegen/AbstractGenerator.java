@@ -16,10 +16,12 @@
 package org.mybatis.generator.codegen;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.PropertyRegistry;
 
 /**
  * 
@@ -67,4 +69,53 @@ public abstract class AbstractGenerator {
     public void setProgressCallback(ProgressCallback progressCallback) {
         this.progressCallback = progressCallback;
     }
+
+    public String getRootClass() {
+    	String rootClass = context.getProperty(PropertyRegistry.CONTEXT_BASE_BEAN_CLASS);
+    	if (rootClass != null) {
+        	return rootClass;
+        }
+    	
+        rootClass = introspectedTable.getTableConfigurationProperty(PropertyRegistry.ANY_ROOT_CLASS);
+        if (rootClass != null) {
+        	return rootClass;
+        }
+        
+        Properties properties = context.getJavaModelGeneratorConfiguration().getProperties();
+        rootClass = properties.getProperty(PropertyRegistry.ANY_ROOT_CLASS);
+        return rootClass;
+    }
+    
+    public String getSqlProviderClass() {
+    	String sqlProviderClass = context.getProperty(PropertyRegistry.CONTEXT_SQL_PROVIDER_CLASS);
+    	if (sqlProviderClass != null) {
+        	return sqlProviderClass;
+        }
+    	
+        sqlProviderClass = introspectedTable.getTableConfigurationProperty(PropertyRegistry.ANY_SQL_PROVIDER_CLASS);
+        if (sqlProviderClass != null) {
+        	return sqlProviderClass;
+        }
+        
+        Properties properties = context.getJavaClientGeneratorConfiguration().getProperties();
+        sqlProviderClass = properties.getProperty(PropertyRegistry.ANY_SQL_PROVIDER_CLASS);
+        return sqlProviderClass;
+    }
+    
+    public String getExampleClass() {
+    	String exampleClass = context.getProperty(PropertyRegistry.CONTEXT_BASE_EXAMPLE_CLASS);
+    	if (exampleClass != null) {
+        	return exampleClass;
+        }
+    	
+    	exampleClass = introspectedTable.getTableConfigurationProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
+    	if (exampleClass != null) {
+    		return exampleClass;
+    	}
+    	
+    	Properties properties = context.getJavaModelGeneratorConfiguration().getProperties();
+		exampleClass = properties.getProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
+    	return exampleClass;
+    }
+    
 }
