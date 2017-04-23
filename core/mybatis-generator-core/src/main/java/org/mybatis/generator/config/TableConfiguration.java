@@ -102,13 +102,13 @@ public class TableConfiguration extends PropertyHolder {
     private String configuredModelType;
     
     /** The delimit identifiers. */
-    private boolean delimitIdentifiers;
+    private boolean delimitIdentifiers = true;
 
     /** The column renaming rule. */
     private ColumnRenamingRule columnRenamingRule;
     
     /** The is all column delimiting enabled. */
-    private boolean isAllColumnDelimitingEnabled;
+    private boolean isAllColumnDelimitingEnabled = true;
     
     private String mapperName;
     private String sqlProviderName;
