@@ -47,7 +47,7 @@ public class AnnotatedDeleteByPrimaryKeyMethodGenerator extends
         
         StringBuilder sb = new StringBuilder();
         javaIndent(sb, 1);
-        sb.append("\"delete from " ); //$NON-NLS-1$
+        sb.append("\"DELETE FROM " ); //$NON-NLS-1$
         sb.append(escapeStringForJava(
                 introspectedTable.getFullyQualifiedTableNameAtRuntime()));
         sb.append("\","); //$NON-NLS-1$
@@ -60,9 +60,9 @@ public class AnnotatedDeleteByPrimaryKeyMethodGenerator extends
             sb.setLength(0);
             javaIndent(sb, 1);
             if (and) {
-                sb.append("  \"and "); //$NON-NLS-1$
+                sb.append("  \"AND "); //$NON-NLS-1$
             } else {
-                sb.append("\"where "); //$NON-NLS-1$
+                sb.append("\"WHERE "); //$NON-NLS-1$
                 and = true;
             }
 

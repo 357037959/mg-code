@@ -47,7 +47,7 @@ public class AnnotatedSelectAllMethodGenerator extends
         StringBuilder sb = new StringBuilder();
         method.addAnnotation("@Select({"); //$NON-NLS-1$
         javaIndent(sb, 1);
-        sb.append("\"select\","); //$NON-NLS-1$
+        sb.append("\"SELECT\","); //$NON-NLS-1$
         method.addAnnotation(sb.toString());
         
         Iterator<IntrospectedColumn> iter = introspectedTable
@@ -64,7 +64,7 @@ public class AnnotatedSelectAllMethodGenerator extends
                 sb.append(", "); //$NON-NLS-1$
             }
 
-            if (sb.length() > 80) {
+            if (sb.length() > 150) {
                 sb.append("\","); //$NON-NLS-1$
                 method.addAnnotation(sb.toString());
                 
@@ -85,7 +85,7 @@ public class AnnotatedSelectAllMethodGenerator extends
         
         sb.setLength(0);
         javaIndent(sb, 1);
-        sb.append("\"from "); //$NON-NLS-1$
+        sb.append("\"FROM "); //$NON-NLS-1$
         sb.append(escapeStringForJava(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime()));
         sb.append('\"');
@@ -97,7 +97,7 @@ public class AnnotatedSelectAllMethodGenerator extends
         if (hasOrderBy) {
             sb.setLength(0);
             javaIndent(sb, 1);
-            sb.append("\"order by "); //$NON-NLS-1$
+            sb.append("\"ORDER BY "); //$NON-NLS-1$
             sb.append(orderByClause);
             sb.append('\"');
             method.addAnnotation(sb.toString());

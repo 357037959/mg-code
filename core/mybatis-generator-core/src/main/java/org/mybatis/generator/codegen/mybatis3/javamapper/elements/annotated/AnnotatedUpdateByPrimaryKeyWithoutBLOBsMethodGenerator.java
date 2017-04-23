@@ -51,7 +51,7 @@ public class AnnotatedUpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
 
         StringBuilder sb = new StringBuilder();
         javaIndent(sb, 1);
-        sb.append("\"update "); //$NON-NLS-1$
+        sb.append("\"UPDATE "); //$NON-NLS-1$
         sb.append(escapeStringForJava(introspectedTable.getFullyQualifiedTableNameAtRuntime()));
         sb.append("\","); //$NON-NLS-1$
         method.addAnnotation(sb.toString());
@@ -59,7 +59,7 @@ public class AnnotatedUpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
         // set up for first column
         sb.setLength(0);
         javaIndent(sb, 1);
-        sb.append("\"set "); //$NON-NLS-1$
+        sb.append("\"SET "); //$NON-NLS-1$
 
         Iterator<IntrospectedColumn> iter;
         if (isSimple) {
@@ -99,9 +99,9 @@ public class AnnotatedUpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
             sb.setLength(0);
             javaIndent(sb, 1);
             if (and) {
-                sb.append("  \"and "); //$NON-NLS-1$
+                sb.append("  \"AND "); //$NON-NLS-1$
             } else {
-                sb.append("\"where "); //$NON-NLS-1$
+                sb.append("\"WHERE "); //$NON-NLS-1$
                 and = true;
             }
 

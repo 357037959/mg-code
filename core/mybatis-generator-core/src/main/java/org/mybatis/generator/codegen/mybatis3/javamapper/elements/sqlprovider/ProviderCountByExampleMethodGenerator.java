@@ -66,14 +66,14 @@ public class ProviderCountByExampleMethodGenerator extends
 
         if (useLegacyBuilder) {
         	method.addBodyLine("BEGIN();"); //$NON-NLS-1$
-        	method.addBodyLine("SELECT(\"count(*)\");"); //$NON-NLS-1$
+        	method.addBodyLine("SELECT(\"COUNT(*)\");"); //$NON-NLS-1$
         	method.addBodyLine(String.format("FROM(\"%s\");", //$NON-NLS-1$
                 escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
         	method.addBodyLine("applyWhere(example, false);"); //$NON-NLS-1$
         	method.addBodyLine("return SQL();"); //$NON-NLS-1$
         } else {
         	method.addBodyLine("SQL sql = new SQL();"); //$NON-NLS-1$
-        	method.addBodyLine(String.format("sql.SELECT(\"count(*)\").FROM(\"%s\");", //$NON-NLS-1$
+        	method.addBodyLine(String.format("sql.SELECT(\"COUNT(*)\").FROM(\"%s\");", //$NON-NLS-1$
                 escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
         	method.addBodyLine("applyWhere(sql, example, false);"); //$NON-NLS-1$
         	method.addBodyLine("return sql.toString();"); //$NON-NLS-1$

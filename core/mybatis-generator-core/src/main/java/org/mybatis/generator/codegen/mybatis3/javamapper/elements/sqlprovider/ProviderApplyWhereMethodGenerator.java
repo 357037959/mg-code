@@ -63,7 +63,7 @@ public class ProviderApplyWhereMethodGenerator extends
         "if (firstCriteria) {", //$NON-NLS-1$
         "firstCriteria = false;", //$NON-NLS-1$
         "} else {", //$NON-NLS-1$
-        "sb.append(\" or \");", //$NON-NLS-1$
+        "sb.append(\" OR \");", //$NON-NLS-1$
         "}", //$NON-NLS-1$
         "", //$NON-NLS-1$        
         "sb.append('(');", //$NON-NLS-1$
@@ -74,7 +74,7 @@ public class ProviderApplyWhereMethodGenerator extends
         "if (firstCriterion) {", //$NON-NLS-1$
         "firstCriterion = false;", //$NON-NLS-1$
         "} else {", //$NON-NLS-1$
-        "sb.append(\" and \");", //$NON-NLS-1$
+        "sb.append(\" AND \");", //$NON-NLS-1$
         "}", //$NON-NLS-1$
         "", //$NON-NLS-1$
         "if (criterion.isNoValue()) {", //$NON-NLS-1$
