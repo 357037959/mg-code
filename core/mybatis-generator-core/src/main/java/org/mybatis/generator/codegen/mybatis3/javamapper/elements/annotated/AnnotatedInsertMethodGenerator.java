@@ -56,12 +56,12 @@ public class AnnotatedInsertMethodGenerator extends
         javaIndent(insertClause, 1);
         javaIndent(valuesClause, 1);
 
-        insertClause.append("\"insert into "); //$NON-NLS-1$
+        insertClause.append("\"INSERT INTO "); //$NON-NLS-1$
         insertClause.append(escapeStringForJava(introspectedTable
                 .getFullyQualifiedTableNameAtRuntime()));
         insertClause.append(" ("); //$NON-NLS-1$
 
-        valuesClause.append("\"values ("); //$NON-NLS-1$
+        valuesClause.append("\"VALUES ("); //$NON-NLS-1$
 
         List<String> valuesClauses = new ArrayList<String>();
         Iterator<IntrospectedColumn> iter = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns())
@@ -78,7 +78,7 @@ public class AnnotatedInsertMethodGenerator extends
                 valuesClause.append(", "); //$NON-NLS-1$
             }
 
-            if (valuesClause.length() > 60) {
+            if (valuesClause.length() > 150) {
                 if (!iter.hasNext()) {
                     insertClause.append(')');
                     valuesClause.append(')');

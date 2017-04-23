@@ -81,7 +81,7 @@ public abstract class AbstractJavaMapperMethodGenerator extends
         if (introspectedColumn != null) {
             if (gk.isJdbcStandard()) {
                 interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Options")); //$NON-NLS-1$
-                sb.append("@Options(useGeneratedKeys=true,keyProperty=\""); //$NON-NLS-1$
+                sb.append("@Options(useGeneratedKeys=true, keyProperty=\""); //$NON-NLS-1$
                 sb.append(introspectedColumn.getJavaProperty());
                 sb.append("\")"); //$NON-NLS-1$
                 method.addAnnotation(sb.toString());

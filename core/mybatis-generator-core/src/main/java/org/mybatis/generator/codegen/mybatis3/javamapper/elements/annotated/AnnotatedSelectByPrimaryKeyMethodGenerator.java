@@ -50,7 +50,7 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
         StringBuilder sb = new StringBuilder();
         method.addAnnotation("@Select({"); //$NON-NLS-1$
         javaIndent(sb, 1);
-        sb.append("\"select\","); //$NON-NLS-1$
+        sb.append("\"SELECT\","); //$NON-NLS-1$
         method.addAnnotation(sb.toString());
         
         Iterator<IntrospectedColumn> iter = introspectedTable
@@ -67,7 +67,7 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
                 sb.append(", "); //$NON-NLS-1$
             }
 
-            if (sb.length() > 80) {
+            if (sb.length() > 150) {
                 sb.append("\","); //$NON-NLS-1$
                 method.addAnnotation(sb.toString());
                 
@@ -99,9 +99,9 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
             sb.setLength(0);
             javaIndent(sb, 1);
             if (and) {
-                sb.append("  \"and "); //$NON-NLS-1$
+                sb.append("  \"AND "); //$NON-NLS-1$
             } else {
-                sb.append("\"where "); //$NON-NLS-1$
+                sb.append("\"WHERE "); //$NON-NLS-1$
                 and = true;
             }
 
