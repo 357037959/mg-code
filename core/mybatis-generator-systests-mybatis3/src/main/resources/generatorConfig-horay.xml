@@ -23,846 +23,108 @@
 <generatorConfiguration>
   <!--<properties resource="/mybatis-generator-systests-mybatis3/src/main/resources/database.properties"/>-->
   
-  <context id="FlatJava5" defaultModelType="flat">
+  <classPathEntry location="/Users/shiyang/Downloads/mysql-connector-java-5.1.35.jar" />
+  
+  <context id="FlatJava5" targetRuntime="MyBatis3">
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+    <property name="autoDelimitKeywords" value="true"/>
+    
+    <property name="baseBeanClass" value="com.ctvit.framework.core.model.BaseBean"/>
+    <property name="sqlProviderClass" value="com.ctvit.framework.core.mapper.BaseSqlProvider" />
+    <property name="baseMapperInterface" value="com.ctvit.framework.core.mapper.BaseMapper"/>
+    <property name="generateExampleClass" value="false"/>
+    <property name="baseExampleClass" value="com.ctvit.framework.core.model.BaseExample"/>
+  
     <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
     <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
     <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
-
+    
+    <commentGenerator>
+      <property name="suppressAllComments" value="true" />
+    </commentGenerator>
+    
     <connectionFactory>
-      <property name="driverClass" value="org.hsqldb.jdbcDriver"/>
-      <!--<property name="connectionURL" value="${database.url}"/>-->
-      <property name="connectionURL" value="jdbc:hsqldb:mem:aname"/>
-      <property name="userId" value="sa"/>
+      <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+      <property name="connectionURL" value="jdbc:mysql://127.0.0.1:3306/pcapp?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
+      <property name="userId" value="root"/>
+      <property name="password" value="jian(12)"/>
     </connectionFactory>
     
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.flat.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <javaModelGenerator targetPackage="com.ctvit.project.xmlmapper.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
+      <property name="rootClass" value="com.ctvit.framework.core.model.BaseBean" />
+      <property name="exampleClass" value="com.ctvit.framework.core.model.BaseExample" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.flat.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <sqlMapGenerator targetPackage="com.ctvit.project.xmlmapper.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.flat.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.ctvit.project.xmlmapper.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
+      <property name="rootInterface" value="com.ctvit.framework.core.mapper.BaseMapper" />
+      <property name="sqlProviderClass" value="com.ctvit.framework.core.mapper.BaseSqlProvider" />
     </javaClientGenerator>
 
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-      <columnOverride column="stringBoolean" javaType="boolean" typeHandler="mbg.test.mb3.common.StringBooleanTypeHandler"/>
+    <table schema="pcapp" tableName="back_ground_image">
+      <generatedKey column="ID" sqlStatement="JDBC" identity="true" type="post"/>
     </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="JDBC" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
+    <table schema="pcapp" tableName="font">
+      <generatedKey column="ID" sqlStatement="JDBC" identity="true" type="post"/>
     </table>
-    <table tableName="EnumTest">
-      <columnOverride column="name" javaType="mbg.test.mb3.common.TestEnum"/>
+    <table schema="pcapp" tableName="font_size" />
+    <table schema="pcapp" tableName="menu_resource">
+      <generatedKey column="RESOURCE_ID" sqlStatement="JDBC" identity="true" type="post"/>
     </table>
   </context>
 
-  <context id="HierarchicalJava5" targetRuntime="MyBatis3" defaultModelType="hierarchical">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-
-    <commentGenerator>
-      <property name="addRemarkComments" value="true"/>
-      <property name="dateFormat" value="yyyy-MM-dd"/>
-    </commentGenerator>
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.hierarchical.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.hierarchical.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.hierarchical.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" domainObjectName="subpackage.FieldsOnlyEntity"
-           mapperName="different.subpackage.FieldsOnlyMapper" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="HSQLDB" identity="true" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-    <table tableName="EnumTest">
-      <columnOverride column="name" javaType="mbg.test.mb3.common.TestEnum"/>
-    </table>
-  </context>
-
-  <context id="ConditionalJava5" targetRuntime="MyBatis3" defaultModelType="conditional">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.conditional.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.conditional.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.conditional.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="HSQLDB" identity="true" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="miscellaneousTests" targetRuntime="MyBatis3">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
-    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin" >
-      <property name="searchString" value="Example$"/>
-      <property name="replaceString" value="Criteria"/>
-    </plugin>
-    <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin" />
-
-    <commentGenerator>
-      <property name="suppressDate" value="true"/>
-    </commentGenerator>
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="rootClass" value="mbg.test.common.BaseClass" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.miscellaneous.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="rootInterface" value="mbg.test.common.BaseInterface" />
-      <property name="methodNameCalculator" value="EXTENDED"/>
-    </javaClientGenerator>
-
-    <table tableName="BlobsOnly" /> <!-- should generate a warning -->
-    <table tableName="NonExistantTable" /> <!-- should generate a warning -->
-    <table tableName="PKFields" domainObjectName="MyObject" mapperName="MyMapper" alias="A" >
-      <ignoreColumn column="fred" /> <!-- should generate a warning -->
-      <ignoreColumn column="decimal30Field" />
-      <columnOverride column="datefield" property="startDate"/>
-      <columnOverride column="decimal155Field" javaType="java.lang.Double" />
-      <columnOverride column="decimal60Field" javaType="int" />
-      <columnOverride column="firstName" javaType="mbg.test.common.FirstName"
-         typeHandler="mbg.test.mb3.common.FirstNameTypeHandler"/>
-      <columnOverride column="timeField" javaType="mbg.test.common.MyTime"
-         typeHandler="mbg.test.mb3.common.MyTimeTypeHandler"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="RegexRename">
-      <generatedKey column="CUST_ID" sqlStatement="call next value for TestSequence" />
-      <columnRenamingRule searchString="^CUST" />
-    </table>
-    <table tableName="EnumTest">
-      <columnOverride column="name" javaType="mbg.test.mb3.common.TestEnum"/>
-    </table>
-    <table tableName="GeneratedAlwaysTest" >
-      <columnOverride column="ID_PLUS1" isGeneratedAlways="true" />
-      <columnOverride column="ID_PLUS2" isGeneratedAlways="true" />
-    </table>
-    <table tableName="GeneratedAlwaysTestNoUpdates" >
-      <columnOverride column="ID_PLUS1" isGeneratedAlways="true" />
-      <columnOverride column="ID_PLUS2" isGeneratedAlways="true" />
-    </table>
-    <table tableName="IgnoreManyColumns">
-      <ignoreColumnsByRegex pattern="(?i)col.*">
-        <except column="col01"/>
-        <except column="col13"/>
-      </ignoreColumnsByRegex>
-    </table>
-  </context>
+  <context id="FlatJava5_annotated" targetRuntime="MyBatis3" defaultModelType="hierarchical">
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+    <property name="autoDelimitKeywords" value="true"/>
+    
+    <property name="baseBeanClass" value="com.ctvit.framework.core.model.BaseBean"/>
+    <property name="sqlProviderClass" value="com.ctvit.framework.core.mapper.BaseSqlProvider" />
+    <property name="baseMapperInterface" value="com.ctvit.framework.core.mapper.BaseMapper"/>
+    <property name="generateExampleClass" value="false"/>
+    <property name="baseExampleClass" value="com.ctvit.framework.core.model.BaseExample"/>
   
-  <context id="miscellaneousTests_NoClient" targetRuntime="MyBatis3">
-    <property name="autoDelimitKeywords" value="true" />
-    
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="enableSubPackages" value="true"/>
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.xml"
-                     targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java"/>
-
-    <table schema="mbgtest" tableName="AnotherAwfulTable" />
-    <table tableName="NameView" />
-  </context>
-
-  <context id="miscellaneousTests_ModelOnly1">
-    <property name="autoDelimitKeywords" value="true" />
-    
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.modelonly1.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </javaModelGenerator>
-
-    <table schema="mbgtest" tableName="AnotherAwfulTable" />
-    <table tableName="NameView" />
-  </context>
-
-  <context id="miscellaneousTests_ModelOnly2">
-    <property name="autoDelimitKeywords" value="true" />
-    
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.modelonly2.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.miscellaneous.modelonly2.xml" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </sqlMapGenerator>
-    
-    <!-- this should, effectively, be ignored as this is model only -->
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.miscellaneous.modelonly2.mapper" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </javaClientGenerator>
-    
-    <table tableName="FieldsOnly" />
-    <table tableName="PKFields" >
-      <property name="modelOnly" value="true" />
-    </table>
-    <table tableName="PKBlobs" >
-      <property name="modelOnly" value="true" />
-    </table>
-  </context>
-
-  <context id="miscellaneousTests_immutable" targetRuntime="MyBatis3" defaultModelType="hierarchical">
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.hierarchical.immutable.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="immutable" value="true"/>
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.hierarchical.immutable.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.hierarchical.immutable.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="PKOnly" />
-    <table tableName="PKBlobs" />
-    <table tableName="PKFields" alias="B" >
-      <property name="immutable" value="false"/>
-      <property name="constructorBased" value="true"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKFieldsBlobs" alias="A" />
-    <table tableName="CompoundKey">
-      <property name="constructorBased" value="true"/>
-    </table>
-  </context>
-
-  <context id="FlatJava5_Annotated" defaultModelType="flat">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.annotated.flat.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mbg.test.mb3.generated.annotated.flat.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-      <columnOverride column="stringBoolean" javaType="boolean" typeHandler="mbg.test.mb3.common.StringBooleanTypeHandler"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="JDBC" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="HierarchicalJava5_Annotated" targetRuntime="MyBatis3" defaultModelType="hierarchical">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.annotated.hierarchical.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mbg.test.mb3.generated.annotated.hierarchical.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="HSQLDB" identity="true" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="ConditionalJava5_Annotated" targetRuntime="MyBatis3" defaultModelType="conditional">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.annotated.conditional.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mbg.test.mb3.generated.annotated.conditional.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="HSQLDB" identity="true" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="miscellaneousTests_Annotated" targetRuntime="MyBatis3">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
-    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin" >
-      <property name="searchString" value="Example$"/>
-      <property name="replaceString" value="Criteria"/>
-    </plugin>
-
-    <commentGenerator>
-      <property name="suppressDate" value="true"/>
-    </commentGenerator>
-    
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.annotated.miscellaneous.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="rootClass" value="mbg.test.common.BaseClass" />
-    </javaModelGenerator>
-
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mbg.test.mb3.generated.annotated.miscellaneous.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="rootInterface" value="mbg.test.common.BaseInterface" />
-      <property name="methodNameCalculator" value="EXTENDED"/>
-    </javaClientGenerator>
-
-    <table tableName="BlobsOnly" />
-    <table tableName="NonExistantTable" />
-    <table tableName="PKFields" domainObjectName="MyObject" alias="A" >
-      <ignoreColumn column="fred" />
-      <ignoreColumn column="decimal30Field" />
-      <columnOverride column="datefield" property="startDate"/>
-      <columnOverride column="decimal155Field" javaType="java.lang.Double" />
-      <columnOverride column="decimal60Field" javaType="int" />
-      <columnOverride column="firstName" javaType="mbg.test.common.FirstName"
-         typeHandler="mbg.test.mb3.common.FirstNameTypeHandler"/>
-      <columnOverride column="timeField" javaType="mbg.test.common.MyTime"
-         typeHandler="mbg.test.mb3.common.MyTimeTypeHandler"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="RegexRename">
-      <generatedKey column="CUST_ID" sqlStatement="call next value for TestSequence" />
-      <columnRenamingRule searchString="^CUST" />
-    </table>
-    <table tableName="EnumTest">
-      <columnOverride column="name" javaType="mbg.test.mb3.common.TestEnum"/>
-    </table>
-    <table tableName="GeneratedAlwaysTest" >
-      <columnOverride column="ID_PLUS1" isGeneratedAlways="true" />
-      <columnOverride column="ID_PLUS2" isGeneratedAlways="true" />
-    </table>
-    <table tableName="GeneratedAlwaysTestNoUpdates" >
-      <columnOverride column="ID_PLUS1" isGeneratedAlways="true" />
-      <columnOverride column="ID_PLUS2" isGeneratedAlways="true" />
-    </table>
-  </context>
-  
-  <context id="miscellaneousTests_immutable_Annotated" targetRuntime="MyBatis3" defaultModelType="hierarchical">
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.annotated.hierarchical.Immutable.Model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="immutable" value="true"/>
-    </javaModelGenerator>
-
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mbg.test.mb3.generated.annotated.hierarchical.Immutable.Mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="PKOnly" />
-    <table tableName="PKBlobs" />
-    <table tableName="PKFields" alias="B" >
-      <property name="immutable" value="false"/>
-      <property name="constructorBased" value="true"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKFieldsBlobs" alias="A" />
-  </context>
-
-  <context id="FlatJava5_Mixed" defaultModelType="flat">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.mixed.flat.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.mixed.flat.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-    
-    <javaClientGenerator type="MIXEDMAPPER" targetPackage="mbg.test.mb3.generated.mixed.flat.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="JDBC" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="HierarchicalJava5_Mixed" targetRuntime="MyBatis3" defaultModelType="hierarchical">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.mixed.hierarchical.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.mixed.hierarchical.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="MIXEDMAPPER" targetPackage="mbg.test.mb3.generated.mixed.hierarchical.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="HSQLDB" identity="true" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="ConditionalJava5_Mixed" targetRuntime="MyBatis3" defaultModelType="conditional">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.mixed.conditional.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.mixed.conditional.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="MIXEDMAPPER" targetPackage="mbg.test.mb3.generated.mixed.conditional.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="HSQLDB" identity="true" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
-
-  <context id="miscellaneousTests_Mixed" targetRuntime="MyBatis3">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
-    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin" >
-      <property name="searchString" value="Example$"/>
-      <property name="replaceString" value="Criteria"/>
-    </plugin>
-
-    <commentGenerator>
-      <property name="suppressDate" value="true"/>
-    </commentGenerator>
-    
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.mixed.miscellaneous.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="rootClass" value="mbg.test.common.BaseClass" />
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.mixed.miscellaneous.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-    
-    <javaClientGenerator type="MIXEDMAPPER" targetPackage="mbg.test.mb3.generated.mixed.miscellaneous.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="rootInterface" value="mbg.test.common.BaseInterface" />
-      <property name="methodNameCalculator" value="EXTENDED"/>
-    </javaClientGenerator>
-
-    <table tableName="BlobsOnly" />
-    <table tableName="NonExistantTable" />
-    <table tableName="PKFields" domainObjectName="MyObject" alias="A" >
-      <ignoreColumn column="fred" />
-      <ignoreColumn column="decimal30Field" />
-      <columnOverride column="datefield" property="startDate"/>
-      <columnOverride column="decimal155Field" javaType="java.lang.Double" />
-      <columnOverride column="decimal60Field" javaType="int" />
-      <columnOverride column="firstName" javaType="mbg.test.common.FirstName"
-         typeHandler="mbg.test.mb3.common.FirstNameTypeHandler"/>
-      <columnOverride column="timeField" javaType="mbg.test.common.MyTime"
-         typeHandler="mbg.test.mb3.common.MyTimeTypeHandler"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="RegexRename">
-      <generatedKey column="CUST_ID" sqlStatement="call next value for TestSequence" />
-      <columnRenamingRule searchString="^CUST" />
-    </table>
-    <table tableName="EnumTest">
-      <columnOverride column="name" javaType="mbg.test.mb3.common.TestEnum"/>
-    </table>
-  </context>
-  
-  <context id="miscellaneousTests_immutable_Mixed" targetRuntime="MyBatis3" defaultModelType="hierarchical">
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.mixed.hierarchical.Immutable.Model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="trimStrings" value="true" />
-      <property name="immutable" value="true"/>
-    </javaModelGenerator>
-
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.mixed.hierarchical.Immutable.XML"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-    
-    <javaClientGenerator type="MIXEDMAPPER" targetPackage="mbg.test.mb3.generated.mixed.hierarchical.Immutable.Mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="PKOnly" />
-    <table tableName="PKBlobs" />
-    <table tableName="PKFields" alias="B" >
-      <property name="immutable" value="false"/>
-      <property name="constructorBased" value="true"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-    </table>
-    <table tableName="PKFieldsBlobs" alias="A" />
-  </context>
-
-  <context id="simple" targetRuntime="MyBatis3Simple">
     <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
     <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
     <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.simple.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    
+    <commentGenerator>
+      <property name="suppressAllComments" value="true" />
+    </commentGenerator>
+    
+    <connectionFactory>
+      <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+      <property name="connectionURL" value="jdbc:mysql://127.0.0.1:3306/pcapp?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
+      <property name="userId" value="root"/>
+      <property name="password" value="jian(12)"/>
+    </connectionFactory>
+    
+    <javaModelGenerator targetPackage="com.ctvit.project.annotated.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="mbg.test.mb3.generated.simple.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </sqlMapGenerator>
-
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mbg.test.mb3.generated.simple.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
+    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.ctvit.project.annotated.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+      <property name="methodNameCalculator" value="EXTENDED"/>
     </javaClientGenerator>
 
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <property name="selectAllOrderByClause" value="ID1, ID2"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-      <columnOverride column="stringBoolean" javaType="boolean" typeHandler="mbg.test.mb3.common.StringBooleanTypeHandler"/>
+    <table schema="pcapp" tableName="back_ground_image">
+      <generatedKey column="ID" sqlStatement="JDBC" identity="true" type="post"/>
     </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="JDBC" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
+    <table schema="pcapp" tableName="font">
+      <generatedKey column="ID" sqlStatement="JDBC" identity="true" type="post"/>
+    </table>
+    <table schema="pcapp" tableName="font_size" />
+    <table schema="pcapp" tableName="menu_resource">
+      <generatedKey column="RESOURCE_ID" sqlStatement="JDBC" identity="true" type="post"/>
     </table>
   </context>
 
-  <context id="simple-annotated" targetRuntime="MyBatis3Simple">
-    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
-    <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
-    <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
-
-    <jdbcConnection driverClass="org.hsqldb.jdbcDriver"
-        connectionURL="jdbc:hsqldb:mem:aname"
-        userId="sa" />
-
-    <javaModelGenerator targetPackage="mbg.test.mb3.generated.simpleannotated.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-      <property name="trimStrings" value="true" />
-    </javaModelGenerator>
-
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mbg.test.mb3.generated.simpleannotated.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
-      <property name="enableSubPackages" value="true" />
-    </javaClientGenerator>
-
-    <table tableName="FieldsOnly" />
-    <table tableName="PKOnly" />
-    <table tableName="PKFields" alias="B" >
-      <property name="selectAllOrderByClause" value="ID1, ID2"/>
-      <columnOverride column="wierd$Field" delimitedColumnName="true"/>
-      <columnOverride column="stringBoolean" javaType="boolean" typeHandler="mbg.test.mb3.common.StringBooleanTypeHandler"/>
-    </table>
-    <table tableName="PKBlobs" />
-    <table tableName="PKFieldsBlobs" />
-    <table tableName="FieldsBlobs" />
-    <table tableName="awful table" alias="A">
-      <generatedKey column="CuStOmEr iD" sqlStatement="JDBC" />
-      <columnOverride column="first name" property="firstFirstName" />
-      <columnOverride column="first_name" property="secondFirstName" />
-      <columnOverride column="firstName" property="thirdFirstName" />
-      <columnOverride column="from" delimitedColumnName="true" >
-        <property name="fredswife" value="wilma"/>
-      </columnOverride>
-      <columnOverride column="active" javaType="boolean" />
-      <columnOverride column="_id1" delimitedColumnName="true" />
-      <columnOverride column="$id2" delimitedColumnName="true" />
-      <columnOverride column="id5_" delimitedColumnName="true" />
-      <columnOverride column="id6$" delimitedColumnName="true" />
-      <columnOverride column="id7$$" delimitedColumnName="true" />
-      <columnOverride column="class" property="dbClass" />
-    </table>
-  </context>
 </generatorConfiguration>
