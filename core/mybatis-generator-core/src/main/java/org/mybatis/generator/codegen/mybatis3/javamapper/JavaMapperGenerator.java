@@ -95,6 +95,7 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
                     rootInterface);
             interfaze.addSuperInterface(fqjt);
             interfaze.addImportedType(fqjt);
+            fqjt.addTypeArgument(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()));
         }
         
         addCountByExampleMethod(interfaze);

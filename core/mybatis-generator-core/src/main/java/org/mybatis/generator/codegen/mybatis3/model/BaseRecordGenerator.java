@@ -264,9 +264,9 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
 	protected void generateStaticFinalField(FullyQualifiedTable table, List<IntrospectedColumn> columns, TopLevelClass topLevelClass) {
 		for (IntrospectedColumn column : columns) {
 			Field field = new Field();
-			if (column == columns.get(0)) {
-				field.addJavaDocLine("");
-			}
+//			if (column == columns.get(0)) {
+//				field.addJavaDocLine("");
+//			}
 			field.setVisibility(JavaVisibility.PUBLIC);
 			field.setType(FullyQualifiedJavaType.getStringInstance());
 			field.setName(column.getActualColumnName().toUpperCase());

@@ -246,13 +246,15 @@ public class JavaBeansUtil {
         context.getCommentGenerator().addFieldComment(field,
                 introspectedTable, introspectedColumn);
 
+        String pkString = introspectedColumn.isPrimaryKey() == true ? ", isPK = true" : "";
+        
         String annotation = null;
 		if (introspectedColumn.isJDBCDateColumn() || introspectedColumn.isJDBCTimeColumn() || introspectedColumn.isJDBCTimestampColumn()) {
-			annotation = String.format("@Column(name = \"%s\", type = \"%s\", field = \"%s\", comment = \"%s\", nullable = %s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), property, introspectedColumn.getRemarks(), introspectedColumn.isNullable());
+			annotation = String.format("@Column(name = \"%s\", type = \"%s\", field = \"%s\", comment = \"%s\", nullable = %s%s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), property, introspectedColumn.getRemarks(), introspectedColumn.isNullable(), pkString);
 		} else if (introspectedColumn.isJdbcNumericColumn() && introspectedColumn.getScale() > 0) {
-			annotation = String.format("@Column(name = \"%s\", type = \"%s\", field = \"%s\", comment = \"%s\", nullable = %s, length = %s, scale = %s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), property, introspectedColumn.isNullable(), introspectedColumn.getRemarks(), introspectedColumn.getLength(), introspectedColumn.getScale());
+			annotation = String.format("@Column(name = \"%s\", type = \"%s\", field = \"%s\", comment = \"%s\", nullable = %s, length = %s, scale = %s%s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), property, introspectedColumn.isNullable(), introspectedColumn.getRemarks(), introspectedColumn.getLength(), introspectedColumn.getScale(), pkString);
 		} else {
-			annotation = String.format("@Column(name = \"%s\", type = \"%s\", field = \"%s\", comment = \"%s\", nullable = %s, length = %s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), property, introspectedColumn.getRemarks(), introspectedColumn.isNullable(), introspectedColumn.getLength());
+			annotation = String.format("@Column(name = \"%s\", type = \"%s\", field = \"%s\", comment = \"%s\", nullable = %s, length = %s%s)", introspectedColumn.getActualColumnName(), introspectedColumn.getJdbcTypeName(), property, introspectedColumn.getRemarks(), introspectedColumn.isNullable(), introspectedColumn.getLength(), pkString);
 		}
 		field.addAnnotation(annotation);
         

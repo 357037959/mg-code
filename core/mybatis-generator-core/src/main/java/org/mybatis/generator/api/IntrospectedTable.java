@@ -705,6 +705,7 @@ public abstract class IntrospectedTable {
             IntrospectedColumn introspectedColumn = iter.next();
             if (introspectedColumn.getActualColumnName().equals(columnName)) {
                 primaryKeyColumns.add(introspectedColumn);
+                introspectedColumn.setPrimaryKey(true);
                 iter.remove();
                 found = true;
                 break;
@@ -718,6 +719,7 @@ public abstract class IntrospectedTable {
                 IntrospectedColumn introspectedColumn = iter.next();
                 if (introspectedColumn.getActualColumnName().equals(columnName)) {
                     primaryKeyColumns.add(introspectedColumn);
+                    introspectedColumn.setPrimaryKey(true);
                     iter.remove();
                     found = true;
                     break;

@@ -80,7 +80,12 @@ public class IntrospectedColumn {
      * True if there is a column override that defines this column as GENERATED ALWAYS
      */
     protected boolean isGeneratedAlways;
-
+    
+    /**
+     * True if there is a column is PrimaryKey
+     */
+    protected boolean isPrimaryKey;
+    
     /**
      * Constructs a Column definition. This object holds all the information
      * about a column that is required to generate Java objects and SQL maps;
@@ -358,4 +363,12 @@ public class IntrospectedColumn {
     public void setGeneratedAlways(boolean isGeneratedAlways) {
         this.isGeneratedAlways = isGeneratedAlways;
     }
+
+	public boolean isPrimaryKey() {
+		return isPrimaryKey;
+	}
+
+	public void setPrimaryKey(boolean isPrimaryKey) {
+		this.isPrimaryKey = isPrimaryKey;
+	}
 }
