@@ -103,10 +103,11 @@ public abstract class AbstractGenerator {
     }
     
     public String getExampleClass() {
-    	String exampleClass = context.getProperty(PropertyRegistry.CONTEXT_BASE_EXAMPLE_CLASS);
-    	if (exampleClass != null) {
-        	return exampleClass;
-        }
+    	String exampleClass = null;
+//    	exampleClass = context.getProperty(PropertyRegistry.CONTEXT_BASE_EXAMPLE_CLASS);
+//    	if (exampleClass != null) {
+//        	return exampleClass;
+//      }
     	
     	exampleClass = introspectedTable.getTableConfigurationProperty(PropertyRegistry.ANY_EXAMPLE_CLASS);
     	if (exampleClass != null) {

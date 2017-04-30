@@ -36,6 +36,9 @@ public class FullyQualifiedJavaType implements
     /** The int instance. */
     private static FullyQualifiedJavaType intInstance = null;
     
+    /** The int instance. */
+    private static FullyQualifiedJavaType integerInstance = null;
+    
     /** The string instance. */
     private static FullyQualifiedJavaType stringInstance = null;
     
@@ -307,6 +310,20 @@ public class FullyQualifiedJavaType implements
         return intInstance;
     }
 
+
+    /**
+     * Gets the Integer instance.
+     *
+     * @return the int instance
+     */
+    public static final FullyQualifiedJavaType getIntegerInstanceForInsertUpdateDelete() {
+        if (integerInstance == null) {
+        	integerInstance = new FullyQualifiedJavaType("java.lang.Integer"); //$NON-NLS-1$
+        }
+
+        return integerInstance;
+    }
+    
     /**
      * Gets the new map instance.
      *
