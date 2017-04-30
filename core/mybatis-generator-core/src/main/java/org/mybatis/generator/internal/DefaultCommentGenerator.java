@@ -272,45 +272,48 @@ public class DefaultCommentGenerator implements CommentGenerator {
     public void addFieldComment(Field field,
             IntrospectedTable introspectedTable,
             IntrospectedColumn introspectedColumn) {
-        if (introspectedColumn.isJDBCDateColumn() || introspectedColumn.isJDBCTimeColumn() || introspectedColumn.isJDBCTimestampColumn()) {
-			field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s) */", //
-					introspectedColumn.getRemarks(), //
-					introspectedColumn.getActualColumnName(),//
-					introspectedColumn.getJdbcTypeName(), //
-					introspectedColumn.isNullable()));
-			return;
-		}
-		if (introspectedColumn.isJdbcCharacterColumn()) {
-			field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s, 长度:%s) */", //
-					introspectedColumn.getRemarks(), //
-					introspectedColumn.getActualColumnName(),//
-					introspectedColumn.getJdbcTypeName(), //
-					introspectedColumn.isNullable(),//
-					introspectedColumn.getLength()));
-			return;
-		}
-		if (introspectedColumn.isJdbcNumericColumn()) {
-			if (introspectedColumn.getScale() > 0) {
-				field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s, 长度:%s, 精度:%s) */", //
-						introspectedColumn.getRemarks(), //
-						introspectedColumn.getActualColumnName(),//
-						introspectedColumn.getJdbcTypeName(), //
-						introspectedColumn.isNullable(),//
-						introspectedColumn.getLength(),//
-						introspectedColumn.getScale(),//
-						introspectedColumn.isIdentity()));
-			} else {
-				field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s, 长度:%s) */", //
-						introspectedColumn.getRemarks(), //
-						introspectedColumn.getActualColumnName(),//
-						introspectedColumn.getJdbcTypeName(), //
-						introspectedColumn.isNullable(),//
-						introspectedColumn.getLength(),//
-						introspectedColumn.isIdentity()));
-			}
-			return;
-		}
-		
+    	return;
+//      if (introspectedColumn.isJDBCDateColumn() || introspectedColumn.isJDBCTimeColumn() || introspectedColumn.isJDBCTimestampColumn()) {
+//			field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s) */", //
+//					introspectedColumn.getRemarks(), //
+//					introspectedColumn.getActualColumnName(),//
+//					introspectedColumn.getJdbcTypeName(), //
+//					introspectedColumn.isNullable()));
+//			return;
+//		}
+//		if (introspectedColumn.isJdbcCharacterColumn()) {
+//			field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s, 长度:%s) */", //
+//					introspectedColumn.getRemarks(), //
+//					introspectedColumn.getActualColumnName(),//
+//					introspectedColumn.getJdbcTypeName(), //
+//					introspectedColumn.isNullable(),//
+//					introspectedColumn.getLength()));
+//			return;
+//		}
+//		if (introspectedColumn.isJdbcNumericColumn()) {
+//			if (introspectedColumn.getScale() > 0) {
+//				field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s, 长度:%s, 精度:%s) */", //
+//						introspectedColumn.getRemarks(), //
+//						introspectedColumn.getActualColumnName(),//
+//						introspectedColumn.getJdbcTypeName(), //
+//						introspectedColumn.isNullable(),//
+//						introspectedColumn.getLength(),//
+//						introspectedColumn.getScale(),//
+//						introspectedColumn.isIdentity()));
+//			} else {
+//				field.addJavaDocLine(String.format("/** %s(列名:%s, 列类型:%s, 可为空:%s, 长度:%s) */", //
+//						introspectedColumn.getRemarks(), //
+//						introspectedColumn.getActualColumnName(),//
+//						introspectedColumn.getJdbcTypeName(), //
+//						introspectedColumn.isNullable(),//
+//						introspectedColumn.getLength(),//
+//						introspectedColumn.isIdentity()));
+//			}
+//			return;
+//		}
+
+/************************************************************************/    	
+    	
 //        if (suppressAllComments) {
 //            return;
 //        }
