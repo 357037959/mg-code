@@ -20,7 +20,9 @@ import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansGett
 import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansSetter;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
@@ -29,12 +31,14 @@ import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.Plugin;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.codegen.RootClassInfo;
+import org.mybatis.generator.constant.Constants;
 
 /**
  * 
@@ -58,6 +62,31 @@ public class RecordWithBLOBsGenerator extends AbstractJavaGenerator {
         TopLevelClass topLevelClass = new TopLevelClass(introspectedTable
                 .getRecordWithBLOBsType());
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
+        
+		topLevelClass.addJavaDocLine("/**");
+		topLevelClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable().getTableComment() + "-映射实体类(" + introspectedTable.getTableConfiguration().getSchema() + "." + introspectedTable.getTableConfiguration().getTableName() + ")");
+		topLevelClass.addJavaDocLine(" *");
+		topLevelClass.addJavaDocLine(" * @author MybatisGenerator");
+		topLevelClass.addJavaDocLine(" * @date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		topLevelClass.addJavaDocLine(" */");
+        
+        StringBuffer annotationBuffer = new StringBuffer("@Table(");
+		annotationBuffer.append("name = \"").append(table.getIntrospectedTableName()).append("\", ");
+		annotationBuffer.append(" comment = \"").append(introspectedTable.getFullyQualifiedTable().getTableComment()).append("\")");
+		topLevelClass.addAnnotation(annotationBuffer.toString());
+		topLevelClass.addImportedType(new FullyQualifiedJavaType(Constants.TABLE_PACKAGE));
+		topLevelClass.addImportedType(new FullyQualifiedJavaType(Constants.COLUMN_PACKAGE));
+		topLevelClass.addSuperInterface(new FullyQualifiedJavaType("java.io.Serializable"));
+		Field serialVersionField = new Field();
+		serialVersionField.setName("serialVersionUID");
+		serialVersionField.setStatic(true);
+		serialVersionField.setFinal(true);
+		serialVersionField.setVisibility(JavaVisibility.PRIVATE);
+		FullyQualifiedJavaType serialVersionUIDType = new FullyQualifiedJavaType("long");
+		serialVersionField.setType(serialVersionUIDType);
+		serialVersionField.setInitializationString("1L");
+		topLevelClass.addField(serialVersionField);
+		topLevelClass.addImportedType(new FullyQualifiedJavaType("java.io.Serializable"));
         commentGenerator.addJavaFileComment(topLevelClass);
 
         String rootClass = getRootClass();
