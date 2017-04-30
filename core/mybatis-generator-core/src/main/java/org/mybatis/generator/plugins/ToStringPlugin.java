@@ -27,6 +27,7 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.config.PropertyRegistry;
 
 public class ToStringPlugin extends PluginAdapter {
 
@@ -91,7 +92,8 @@ public class ToStringPlugin extends PluginAdapter {
         }
 
         method.addBodyLine("sb.append(\"]\");"); //$NON-NLS-1$
-        if (useToStringFromRoot && topLevelClass.getSuperClass() != null) {
+        if (useToStringFromRoot && topLevelClass.getSuperClass() != null 
+        		&& !topLevelClass.getSuperClass().getFullyQualifiedName().equals(introspectedTable.getContext().getProperty(PropertyRegistry.CONTEXT_BASE_BEAN_CLASS))) {
             method.addBodyLine("sb.append(\", from super class \");"); //$NON-NLS-1$
             method.addBodyLine("sb.append(super.toString());"); //$NON-NLS-1$
         }
