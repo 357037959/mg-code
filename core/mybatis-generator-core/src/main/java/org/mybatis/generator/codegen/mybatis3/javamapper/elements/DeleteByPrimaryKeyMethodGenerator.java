@@ -46,7 +46,7 @@ public class DeleteByPrimaryKeyMethodGenerator extends
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setReturnType(FullyQualifiedJavaType.getIntegerInstanceForInsertUpdateDelete());
         method.setName(introspectedTable.getDeleteByPrimaryKeyStatementId());
 
         if (!isSimple && introspectedTable.getRules().generatePrimaryKeyClass()) {

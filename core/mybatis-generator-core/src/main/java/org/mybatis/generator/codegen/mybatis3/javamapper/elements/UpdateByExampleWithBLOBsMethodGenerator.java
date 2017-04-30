@@ -41,7 +41,7 @@ public class UpdateByExampleWithBLOBsMethodGenerator extends
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setReturnType(FullyQualifiedJavaType.getIntegerInstanceForInsertUpdateDelete());
         method.setName(introspectedTable
                 .getUpdateByExampleWithBLOBsStatementId());
 

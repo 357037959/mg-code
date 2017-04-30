@@ -53,7 +53,7 @@ public class UpdateByPrimaryKeyWithBLOBsMethodGenerator extends
 
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setReturnType(FullyQualifiedJavaType.getIntegerInstanceForInsertUpdateDelete());
 
         method.setName(introspectedTable
             .getUpdateByPrimaryKeyWithBLOBsStatementId());

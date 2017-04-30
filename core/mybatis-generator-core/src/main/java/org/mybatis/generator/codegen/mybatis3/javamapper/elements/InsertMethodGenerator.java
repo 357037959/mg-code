@@ -43,7 +43,7 @@ public class InsertMethodGenerator extends AbstractJavaMapperMethodGenerator {
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         Method method = new Method();
 
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setReturnType(FullyQualifiedJavaType.getIntegerInstanceForInsertUpdateDelete());
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName(introspectedTable.getInsertStatementId());
 
