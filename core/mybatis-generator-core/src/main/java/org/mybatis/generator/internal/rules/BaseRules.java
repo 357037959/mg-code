@@ -41,6 +41,9 @@ public abstract class BaseRules implements Rules {
     /** The is model only. */
     protected final boolean isModelOnly;
 
+    /** The is model only. */
+    protected final boolean isModelAndMapperOnly;
+    
     /**
      * Instantiates a new base rules.
      *
@@ -51,8 +54,23 @@ public abstract class BaseRules implements Rules {
         super();
         this.introspectedTable = introspectedTable;
         this.tableConfiguration = introspectedTable.getTableConfiguration();
-        String modelOnly = tableConfiguration.getProperty(PropertyRegistry.TABLE_MODEL_ONLY);
-        isModelOnly = StringUtility.isTrue(modelOnly);
+        String modelOnly = introspectedTable.getContext().getProperty(PropertyRegistry.TABLE_MODEL_ONLY);
+        boolean tempIsModelOnly = StringUtility.isTrue(modelOnly);
+        if (tempIsModelOnly) {
+        	isModelOnly = true;
+        } else {
+        	modelOnly = tableConfiguration.getProperty(PropertyRegistry.TABLE_MODEL_ONLY);
+        	isModelOnly = StringUtility.isTrue(modelOnly);
+        }
+        
+        String modelAndMapperOnly = introspectedTable.getContext().getProperty(PropertyRegistry.TABLE_MODEL_MAPPER_ONLY);
+        boolean tempIsModelAndMapperOnly = StringUtility.isTrue(modelAndMapperOnly);
+        if (tempIsModelAndMapperOnly) {
+        	 isModelAndMapperOnly = true;
+        } else {
+        	modelAndMapperOnly = tableConfiguration.getProperty(PropertyRegistry.TABLE_MODEL_MAPPER_ONLY);
+        	isModelAndMapperOnly = StringUtility.isTrue(modelAndMapperOnly);
+        }
     }
 
     /**
@@ -64,6 +82,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateInsert() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
@@ -79,6 +101,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateInsertSelective() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
@@ -121,6 +147,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         if (ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getBaseColumns()).isEmpty()) {
             return false;
         }
@@ -145,6 +175,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         if (ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getNonPrimaryKeyColumns()).isEmpty()) {
             return false;
         }
@@ -165,6 +199,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateUpdateByPrimaryKeySelective() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
@@ -193,6 +231,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         boolean rc = tableConfiguration.isDeleteByPrimaryKeyStatementEnabled()
                 && introspectedTable.hasPrimaryKeyColumns();
 
@@ -208,6 +250,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateDeleteByExample() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
@@ -317,6 +363,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         boolean rc = tableConfiguration.isSelectByPrimaryKeyStatementEnabled()
                 && introspectedTable.hasPrimaryKeyColumns()
                 && (introspectedTable.hasBaseColumns() || introspectedTable
@@ -337,6 +387,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         return tableConfiguration.isSelectByExampleStatementEnabled();
     }
 
@@ -350,6 +404,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateSelectByExampleWithBLOBs() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
@@ -367,6 +425,10 @@ public abstract class BaseRules implements Rules {
      * @return true if the example class should be generated
      */
     public boolean generateExampleClass() {
+    	if (introspectedTable.getContext().getProperty(PropertyRegistry.CONTEXT_BASE_EXAMPLE_CLASS) != null) {
+    		return false;
+    	}
+    	
     	if (StringUtility.isFalse(introspectedTable.getContext().getProperty(PropertyRegistry.CONTEXT_GENERATE_EXAMPLE_CLASS))) {
     		return false;
     	}
@@ -397,6 +459,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         boolean rc = tableConfiguration.isCountByExampleStatementEnabled();
 
         return rc;
@@ -407,6 +473,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateUpdateByExampleSelective() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
@@ -423,6 +493,10 @@ public abstract class BaseRules implements Rules {
             return false;
         }
         
+        if (isModelAndMapperOnly) {
+            return false;
+        }
+        
         boolean rc = tableConfiguration.isUpdateByExampleStatementEnabled()
                 && (introspectedTable.hasPrimaryKeyColumns() || introspectedTable
                         .hasBaseColumns());
@@ -435,6 +509,10 @@ public abstract class BaseRules implements Rules {
      */
     public boolean generateUpdateByExampleWithBLOBs() {
         if (isModelOnly) {
+            return false;
+        }
+        
+        if (isModelAndMapperOnly) {
             return false;
         }
         
