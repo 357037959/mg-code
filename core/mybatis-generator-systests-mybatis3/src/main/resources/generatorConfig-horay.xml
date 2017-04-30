@@ -23,7 +23,7 @@
 <generatorConfiguration>
   <!--<properties resource="/mybatis-generator-systests-mybatis3/src/main/resources/database.properties"/>-->
   
-  <classPathEntry location="/Users/shiyang/Downloads/mysql-connector-java-5.1.35.jar" />
+  <classPathEntry location="D:/mysql-connector-java-5.1.35.jar" />
   
   <context id="FlatJava5" targetRuntime="MyBatis3">
     <property name="beginningDelimiter" value="`"/>
@@ -32,9 +32,11 @@
     
     <property name="baseBeanClass" value="com.ctvit.framework.core.model.BaseBean"/>
     <property name="sqlProviderClass" value="com.ctvit.framework.core.mapper.BaseSqlProvider" />
-    <property name="baseMapperInterface" value="com.ctvit.framework.core.mapper.BaseMapper"/>
+    <property name="baseMapperInterface" value="com.baomidou.mybatisplus.mapper.BaseMapper"/>
     <property name="generateExampleClass" value="false"/>
     <property name="baseExampleClass" value="com.ctvit.framework.core.model.BaseExample"/>
+<!--     <property name="modelOnly" value="true"/> -->
+    <property name="modelAndMapperOnly" value="true"/>
   
     <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
     <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
@@ -48,23 +50,23 @@
       <property name="driverClass" value="com.mysql.jdbc.Driver"/>
       <property name="connectionURL" value="jdbc:mysql://127.0.0.1:3306/pcapp?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
       <property name="userId" value="root"/>
-      <property name="password" value="jian(12)"/>
+      <property name="password" value="ctvit.com"/>
     </connectionFactory>
     
-    <javaModelGenerator targetPackage="com.ctvit.project.xmlmapper.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <javaModelGenerator targetPackage="com.ctvit.project.xmlmapper.model" targetProject="C:/Users/heyingcheng/git/mg-code/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
       <property name="rootClass" value="com.ctvit.framework.core.model.BaseBean" />
       <property name="exampleClass" value="com.ctvit.framework.core.model.BaseExample" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="com.ctvit.project.xmlmapper.xml"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <sqlMapGenerator targetPackage="com.ctvit.project.xmlmapper.xml"  targetProject="C:/Users/heyingcheng/git/mg-code/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.ctvit.project.xmlmapper.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.ctvit.project.xmlmapper.mapper"  targetProject="C:/Users/heyingcheng/git/mg-code/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
-      <property name="rootInterface" value="com.ctvit.framework.core.mapper.BaseMapper" />
+      <property name="rootInterface" value="com.baomidou.mybatisplus.mapper.BaseMapper" />
       <property name="sqlProviderClass" value="com.ctvit.framework.core.mapper.BaseSqlProvider" />
     </javaClientGenerator>
 
@@ -87,7 +89,7 @@
     
     <property name="baseBeanClass" value="com.ctvit.framework.core.model.BaseBean"/>
     <property name="sqlProviderClass" value="com.ctvit.framework.core.mapper.BaseSqlProvider" />
-    <property name="baseMapperInterface" value="com.ctvit.framework.core.mapper.BaseMapper"/>
+    <property name="baseMapperInterface" value=""/>
     <property name="generateExampleClass" value="false"/>
     <property name="baseExampleClass" value="com.ctvit.framework.core.model.BaseExample"/>
   
@@ -103,15 +105,15 @@
       <property name="driverClass" value="com.mysql.jdbc.Driver"/>
       <property name="connectionURL" value="jdbc:mysql://127.0.0.1:3306/pcapp?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
       <property name="userId" value="root"/>
-      <property name="password" value="jian(12)"/>
+      <property name="password" value="ctvit.com"/>
     </connectionFactory>
     
-    <javaModelGenerator targetPackage="com.ctvit.project.annotated.model" targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <javaModelGenerator targetPackage="com.ctvit.project.annotated.model" targetProject="C:/Users/heyingcheng/git/mg-code/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
-    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.ctvit.project.annotated.mapper"  targetProject="/Users/shiyang/git/mybatis/core/mybatis-generator-systests-mybatis3/src/test/java">
+    <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.ctvit.project.annotated.mapper"  targetProject="C:/Users/heyingcheng/git/mg-code/core/mybatis-generator-systests-mybatis3/src/test/java">
       <property name="methodNameCalculator" value="EXTENDED"/>
     </javaClientGenerator>
 
